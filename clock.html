@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 100vh;
+            background-color: rgb(92, 92, 92);
+        }
+
+        .clock {
+            background-color: rgb(98, 151, 135);
+            width: 300px;
+            height: 320px;
+            border-radius: 50% 50% 5% 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+
+        }
+
+        .numbers {
+            position: absolute;
+            top: 22px;
+            background-color: #151811;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .numbers::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: rgb(106, 137, 173);
+            border-radius: 50%;
+            z-index: 1;
+            border: 1px solid #ce1a1a;
+        }
+
+        span {
+            position: absolute;
+            inset: 15px;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            transform: rotate(calc(30deg * var(--i)));
+        }
+
+        span b {
+            font-weight: 600;
+            display: inline-block;
+            transform: rotate(calc(-30deg * var(--i)));
+        }
+
+        .circle {
+            border: 1px solid #575366;
+            width: 160px;
+            height:160px;
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .circle i {
+            content: '';
+            width: 4px;
+            height: 50%;
+            position: absolute;
+            border-radius: 25%;
+            transform-origin: bottom;
+            transform: scaleY(.5);
+            background-color: var(--clr);
+        }
+
+
+        .circle#min i {
+            width: 3px;
+        }
+
+        .circle#sec i {
+            width: 2px;
+        }
+
+        .circle#min{
+            width: 135px;
+            height: 135px;
+        }
+        .circle#hrs{
+            width: 110px;
+            height: 110px;
+        }
+
+        .circle::before {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            width: 7px;
+            height: 7px;
+            top: -4px;
+            background-color: var(--clr);
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="clock">
+        <div class="numbers">
+            <div class="circle" id="sec" style="--clr:aqua;"><i></i></div>
+            <div class="circle" id="min" style="--clr:#00ff37;"><i></i></div>
+            <div class="circle" id="hrs" style="--clr:red;"><i></i></div>
+
+            <span style="--i:0;"><b>12</b></span>
+            <span style="--i:1;"><b>1</b></span>
+            <span style="--i:2;"><b>2</b></span>
+            <span style="--i:3;"><b>3</b></span>
+            <span style="--i:4;"><b>4</b></span>
+            <span style="--i:5;"><b>5</b></span>
+            <span style="--i:6;"><b>6</b></span>
+            <span style="--i:7;"><b>7</b></span>
+            <span style="--i:8;"><b>8</b></span>
+            <span style="--i:9;"><b>9</b></span>
+            <span style="--i:10;"><b>10</b></span>
+            <span style="--i:11;"><b>11</b></span>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let hr = document.querySelector('#hrs');
+            let mn = document.querySelector('#min');
+            let sc = document.querySelector('#sec');
+
+
+            setInterval(() => {
+                let day = new Date();
+                let hh = day.getHours() * 30;
+                let mm = day.getMinutes() * 6;
+                let ss = day.getSeconds() * 6;
+
+                hr.style.transform = `rotateZ(${hh + (mm / 12)}deg)`;
+                mn.style.transform = `rotateZ(${mm}deg)`;
+                sc.style.transform = `rotateZ(${ss}deg)`;
+            }, 1000);
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>
